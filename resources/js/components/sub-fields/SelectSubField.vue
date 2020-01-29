@@ -30,7 +30,8 @@
 
         props: [
             'subField',
-            'value'
+            'value',
+            'index'
         ],
 
         computed:{

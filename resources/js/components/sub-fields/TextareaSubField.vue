@@ -19,7 +19,8 @@
 
         props: [
             'subField',
-            'value'
+            'value',
+            'index'
         ],
 
     }

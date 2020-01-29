@@ -2,23 +2,24 @@
     <default-field :field="field">
         <template slot="field">
             <draggable
-                    v-model="rows"
-                    :options="{ handle: '.js-row-move' }">
+                v-model="rows"
+                handle=".js-row-move"
+            >
                 <sub-field-row
-                        v-for="(row, index) in rows"
-                        v-model="rows[index]"
-                        :key="index"
-                        :index="index"
-                        :field="field"
-                        @delete-row="deleteRow"
+                    v-for="(row, index) in rows"
+                    v-model="rows[index]"
+                    :key="index"
+                    :index="index"
+                    :field="field"
+                    @delete-row="deleteRow"
                 ></sub-field-row>
             </draggable>
 
             <button
-                    class="btn btn-default btn-primary"
-                    @click.prevent="addNewRow"
-                    v-text="addButtonText"
-                    :class="{ 'cursor-not-allowed opacity-50': hasReachedMaximumRows }"
+                class="btn btn-default btn-primary"
+                @click.prevent="addNewRow"
+                v-text="addButtonText"
+                :class="{ 'cursor-not-allowed opacity-50': hasReachedMaximumRows }"
             ></button>
 
             <p v-if="hasError" class="my-2 text-danger">
@@ -29,90 +30,90 @@
 </template>
 
 <script>
-	import draggable from 'vuedraggable'
-	import {FormField, HandlesValidationErrors} from 'laravel-nova'
-	import SubFieldRow from './rows/SubFieldRow.vue';
+    import draggable from 'vuedraggable'
+    import {FormField, HandlesValidationErrors} from 'laravel-nova'
+    import SubFieldRow from './rows/SubFieldRow.vue';
 
-	export default {
+    export default {
 
-		mixins: [FormField, HandlesValidationErrors],
+        mixins: [FormField, HandlesValidationErrors],
 
-		components: {
-			draggable,
-			SubFieldRow
-		},
+        components: {
+            draggable,
+            SubFieldRow
+        },
 
-		data: () => ({
-			value: '',
-			rows: []
-		}),
+        data: () => ({
+            value: '',
+            rows: []
+        }),
 
-		props: ['resourceName', 'resourceId', 'field'],
+        props: ['resourceName', 'resourceId', 'field'],
 
-		computed: {
-			addButtonText() {
-				return (this.field.add_button_text)
-					? this.field.add_button_text
-					: 'Add row'
-			},
+        computed: {
+            addButtonText() {
+                return (this.field.add_button_text)
+                    ? this.field.add_button_text
+                    : 'Add row'
+            },
 
-			hasReachedMaximumRows() {
-				if (this.field.maximum_rows) {
-					return this.rows.length >= this.field.maximum_rows;
-				}
+            hasReachedMaximumRows() {
+                if (this.field.maximum_rows) {
+                    return this.rows.length >= this.field.maximum_rows;
+                }
 
-				return false;
+                return false;
 
-			},
-			shouldAddInitialRows() {
-				return (this.field.initial_rows) && (this.field.initial_rows > this.rows.length);
-			}
-		},
+            },
+            shouldAddInitialRows() {
+                return (this.field.initial_rows) && (this.field.initial_rows > this.rows.length);
+            }
+        },
 
-		methods: {
+        methods: {
 
-			setInitialValue() {
-				this.value = this.field.value || '';
-				this.$nextTick(() => {
-					this.rows = (this.value)
-						? JSON.parse(this.value)
-						: [];
+            setInitialValue() {
+                this.value = this.field.value || '';
+                this.$nextTick(() => {
+                    this.rows = (this.value)
+                        ? JSON.parse(this.value)
+                        : [];
 
-					if (this.shouldAddInitialRows) {
-						let count = this.field.initial_rows - this.rows.length;
-						for (let i = 1; i <= count; i++) {
-							this.addNewRow();
-						}
-					}
-				});
-			},
+                    if (this.shouldAddInitialRows) {
+                        let count = this.field.initial_rows - this.rows.length;
+                        for (let i = 1; i <= count; i++) {
+                            this.addNewRow();
+                        }
+                    }
+                });
+            },
 
-			fill(formData) {
-				formData.append(this.field.attribute, this.value || '')
-			},
+            fill(formData) {
+                formData.append(this.field.attribute, this.value || '')
+            },
 
-			addNewRow() {
-				if (! this.hasReachedMaximumRows) {
-					let newRow = this.field.sub_fields
-						.map(subField => subField.name)
-						.reduce((o, key) => ({...o, [key]: null}), {});
+            addNewRow() {
+                if (!this.hasReachedMaximumRows) {
+                    let newRow = this.field.sub_fields
+                        .map(subField => subField.name)
+                        .reduce((o, key) => ({...o, [key]: null}), {});
 
-					this.rows.push(newRow);
-				}
-			},
+                    this.rows.push(newRow);
+                }
+            },
 
-			deleteRow(index) {
-				this.rows.splice(index, 1);
-			}
-		},
+            deleteRow(index) {
+                this.rows.splice(index, 1);
+            }
+        },
 
-		watch: {
-			'rows': {
-				handler: function (newRows) {
-					this.value = JSON.stringify(newRows);
-				},
-				deep: true
-			}
-		}
-	}
+        watch: {
+            'rows': {
+                handler: function (newRows) {
+                    this.value = JSON.stringify(newRows);
+                },
+                deep: true
+            }
+        }
+    }
 </script>

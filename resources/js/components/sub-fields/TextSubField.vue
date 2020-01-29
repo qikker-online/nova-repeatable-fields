@@ -1,7 +1,7 @@
 <template>
     <div>
         <input
-            :id="subField.name"
+            :id="subField.name + '-' + index"
             :name="subField.name"
             type="text"
             class="w-full form-control form-input form-input-bordered"
@@ -20,7 +20,8 @@
 
         props: [
             'subField',
-            'value'
+            'value',
+            'index'
         ],
 
     }
