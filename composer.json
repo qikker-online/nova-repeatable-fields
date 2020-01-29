@@ -1,5 +1,5 @@
 {
-    "name": "fourstacks/nova-repeatable-fields",
+    "name": "qikker-online/nova-repeatable-fields",
     "description": "A Laravel Nova field.",
     "keywords": [
         "laravel",
@@ -7,17 +7,18 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.1.0"
+        "php": ">=7.1.0",
+        "illuminate/support": "6.*"
     },
     "autoload": {
         "psr-4": {
-            "Fourstacks\\NovaRepeatableFields\\": "src/"
+            "QikkerOnline\\NovaRepeatableFields\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Fourstacks\\NovaRepeatableFields\\FieldServiceProvider"
+                "QikkerOnline\\NovaRepeatableFields\\FieldServiceProvider"
             ]
         }
     },

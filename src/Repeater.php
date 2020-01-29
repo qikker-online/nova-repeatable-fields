@@ -1,6 +1,6 @@
 <?php
 
-namespace Fourstacks\NovaRepeatableFields;
+namespace QikkerOnline\NovaRepeatableFields;
 
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -94,7 +94,7 @@ class Repeater extends Field
         $config = array_intersect_key($fieldConfig, array_flip($allowedKeys));
 
         if(! isset($config['name'])){
-            $config['name'] = str_slug($config['label'], '_');
+            $config['name'] = \Str::slug($config['label'], '_');
         }
         if(! isset($config['placeholder'])){
             $config['placeholder'] = $config['label'];
