@@ -1,7 +1,7 @@
 <template>
     <div>
         <textarea
-            :id="subField.name"
+            :id="subField.name + '-' + index"
             :name="subField.name"
             class="w-full form-control form-input form-input-bordered py-3 h-auto"
             :placeholder="subField.placeholder"

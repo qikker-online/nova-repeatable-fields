@@ -1,7 +1,7 @@
 <template>
     <div>
         <select
-            :id="subField.name"
+            :id="subField.name + '-' + index"
             :name="subField.name"
             class="w-full form-control form-select"
             :value="value"
@@ -34,8 +34,8 @@
             'index'
         ],
 
-        computed:{
-            placeholder(){
+        computed: {
+            placeholder() {
                 return (this.subField.placeholder === this.subField.label)
                     ? this.__('Choose an option')
                     : this.subField.placeholder

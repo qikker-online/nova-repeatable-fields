@@ -18304,7 +18304,7 @@ var render = function() {
         {
           staticClass: "w-full form-control form-input form-input-bordered",
           attrs: {
-            id: _vm.subField.name,
+            id: _vm.subField.name + "-" + _vm.index,
             name: _vm.subField.name,
             type: "email",
             placeholder: _vm.subField.placeholder
@@ -18425,7 +18425,7 @@ var render = function() {
         {
           staticClass: "w-full form-control form-input form-input-bordered",
           attrs: {
-            id: _vm.subField.name,
+            id: _vm.subField.name + "-" + _vm.index,
             name: _vm.subField.name,
             type: "number",
             placeholder: _vm.subField.placeholder
@@ -18561,7 +18561,10 @@ var render = function() {
       _vm._b(
         {
           staticClass: "w-full form-control form-select",
-          attrs: { id: _vm.subField.name, name: _vm.subField.name },
+          attrs: {
+            id: _vm.subField.name + "-" + _vm.index,
+            name: _vm.subField.name
+          },
           domProps: { value: _vm.value },
           on: {
             change: function($event) {
@@ -18695,7 +18698,7 @@ var render = function() {
           staticClass:
             "w-full form-control form-input form-input-bordered py-3 h-auto",
           attrs: {
-            id: _vm.subField.name,
+            id: _vm.subField.name + "-" + _vm.index,
             name: _vm.subField.name,
             placeholder: _vm.subField.placeholder,
             rows: "5"
